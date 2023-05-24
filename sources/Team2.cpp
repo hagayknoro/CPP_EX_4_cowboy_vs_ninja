@@ -12,13 +12,9 @@
   {
     if(!other)
       throw invalid_argument("You have to get am enmmy for attack\n");
-    if(other->stillAlive() == 0 || this->stillAlive() == 0)
-      throw runtime_error("One of the involved team is all ded");
-    if(this == other)
-      throw runtime_error("This is not the place for suicidal tendencies, we are in the middle of battle\n");
-    if(!this->getCommander()->isAlive())
-      this->setCommander(findClosestFigure(this));
-    
+    if(other->stillAlive() == 0)
+      return;
+    setCommander(findClosestFigure(this));
     Character *target = findClosestFigure(other);
     for(Character *member : *this->getTeam())
     {

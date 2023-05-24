@@ -2,7 +2,7 @@
 #include "Character.hpp"
 
 Cowboy::Cowboy(string name, const Point &location)
-    : Character(name, location, 100), raunds(6)
+    : Character(name, location, 110), raunds(6)
     {
     }
 
@@ -10,17 +10,11 @@ void Cowboy::shoot(Character *enemy)
 {
     //check for make shoor the enmy is alive and the anmy and me isnt the same charcter
     if(!this->isAlive())
-    {
         throw runtime_error("The figure is dead he can't soot\n");
-    }
     if(this == enemy)
-    {
         throw runtime_error("This is not the place for suicidal tendencies, we are in the middle of battle\n");
-    }
     if(!enemy->isAlive())
-    {
         throw runtime_error("This is against the Geneva Convention, manslaughter is not verified\n");
-    }
     if(this->hasboolets())
     {
         this->raunds -=1;
@@ -47,13 +41,10 @@ void Cowboy::attack(Character *enemy)
 {
     if(!this->isAlive())
         return;
-
     if(this == enemy)
-        throw runtime_error("This is not the place for suicidal tendencies, we are in the middle of battle\n");
-        
+        throw runtime_error("This is not the place for suicidal tendencies, we are in the middle of battle\n");   
     if(!enemy->isAlive())
         return;
-
     if(this->hasboolets())
         this->shoot(enemy);
     else

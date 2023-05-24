@@ -1,4 +1,6 @@
 #include "Character.hpp"
+#include "Ninja.hpp"
+#include "Cowboy.hpp"
 
 Character::Character(string name, const Point &location, int life):
     name(name), location(location), life(life), TeeMember(false)
@@ -7,7 +9,7 @@ Character::Character(string name, const Point &location, int life):
 
 bool Character::isAlive()
 {
-    return life > 0;
+    return 0 < life;
 }
 
 double Character::distance(Character *other)
@@ -20,7 +22,7 @@ void Character::hit(int hurt)
     //chack for valid hit
     if(hurt < 0)
     {
-        throw invalid_argument("nice tey, but you missed");
+        throw invalid_argument("nice try, but you missed");
     }
     this->life -= hurt;
 }

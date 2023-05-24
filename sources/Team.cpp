@@ -40,12 +40,9 @@ Team &Team::operator=(Team &&other) noexcept{
   {
     if(!other)
       throw invalid_argument("You have to get am enmmy for attack\n");
-    if(other->stillAlive() == 0 || this->stillAlive() == 0)
-      throw runtime_error("One of the involved team is all ded");
-    if(this == other)
-      throw runtime_error("This is not the place for suicidal tendencies, we are in the middle of battle\n");
-    if(this->commander->isAlive() == 0)
-      this->commander = findClosestFigure(this);
+    if(other->stillAlive() == 0)
+      throw runtime_error("other team is all ded");
+    commander = findClosestFigure(this);
     
     Character *target = findClosestFigure(other);
     for(Character *member : team)
@@ -78,7 +75,6 @@ Team &Team::operator=(Team &&other) noexcept{
       else
         continue;
     }
-  
   }
 
   int Team::stillAlive()
@@ -119,7 +115,7 @@ Character *Team::findFarestFigure(Character *figure, Team * team)
 
   for(Character *member : team->team)
   {
-    if(member->isAlive() && figure->distance(member) > findeDst)
+    if(member->isAlive() && (figure->distance(member) > findeDst))
     {
       findeDst = figure->distance(member);
       findedFigure = member;
@@ -135,7 +131,7 @@ Character *Team::findClosestFigure(Team *team)
 
   for(Character *member : team->team)
   {
-    if(member->isAlive() && this->commander->distance(member) < findeDst)
+    if(member->isAlive() && (this->commander->distance(member) < findeDst))
     {
       findeDst = this->commander->distance(member);
       findedFigure = member;
@@ -151,7 +147,7 @@ Character *Team::findClosestFigureSmart(Character *figure, Team *team)
 
   for(Character *member : team->team)
   {
-    if(member->isAlive() && figure->distance(member) < findeDst)
+    if(member->isAlive() && (figure->distance(member) < findeDst))
     {
       findeDst = figure->distance(member);
       findedFigure = member;
