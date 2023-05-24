@@ -1,36 +1,46 @@
 #include "Character.hpp"
 
 Character::Character(string name, const Point &location, int life):
-    name(name), location(location), life(life)
+    name(name), location(location), life(life), TeeMember(false)
 {
-
 }
 
 bool Character::isAlive()
 {
-    return true;
+    return life > 0;
 }
-double Character::distance(const Character &other)
-{
-    return 0.0;
-}
-void Character::hit(int hPow)
-{
 
+double Character::distance(Character *other)
+{
+    return this->location.distance(other->location);
 }
+
+void Character::hit(int hurt)
+{
+    //chack for valid hit
+    if(hurt < 0)
+    {
+        throw invalid_argument("nice tey, but you missed");
+    }
+    this->life -= hurt;
+}
+
 string Character::getName()
 {
-    return "Jon Doh";
+    return this->name;
 }
-Point Character::getLocation()
+
+Point Character::getLocation() const
 {
-    return Point(0.0, 0.0);
+    return this->location;
 }
-string Character::print()
+
+void Character::setLocation(Point goTo)
 {
-    return "Jon Doh, points";
+    this->location = goTo;
 }
+
 int Character::getLife()
 {
-    return life;
+    return this->life;
 }

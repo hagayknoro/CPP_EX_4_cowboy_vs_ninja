@@ -1,5 +1,10 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include <stdexcept>
 #include "Character.hpp"
+
+using namespace std;
 
 constexpr int YOUNG_NINJA_HP = 100;
 constexpr int YOUNG_NINJA_SPEED = 14;
@@ -14,36 +19,15 @@ class Ninja : public Character
 
 public:
     Ninja(string name, const Point &location, int life, int speed);
-    void move(const Character *enemy);
+
     void slash(Character *enemy);
-};
-
-class YoungNinja : public Ninja {
-
-public:
-  YoungNinja(string name, const Point &location):
-    Ninja(std::move(name), location, YOUNG_NINJA_HP, YOUNG_NINJA_SPEED) 
+    void move(const Character *enemy);
+    void attack(Character *enemy) override;
+    string print() override;
+    string getFigure() override
     {
-
+        return "Ninja";
     }
 };
 
-class TrainedNinja : public Ninja {
 
-public:
-  TrainedNinja(string name, const Point &location):
-    Ninja(std::move(name), location, TRAINED_NINJA_HP, TRAINED_NINJA_SPEED) 
-    {
-
-    }
-};
-
-class OldNinja : public Ninja {
-
-public:
-  OldNinja(string name, const Point &location):
-    Ninja(std::move(name), location, OLD_NINJA_HP, OLD_NINJA_SPEED) 
-    {
-        
-    }
-};
