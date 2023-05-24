@@ -21,12 +21,12 @@ class Team
 
 public:
   //constrctors
-  Team(const Team& other) = default;
   Team(Character *commander);
+  Team(const Team& other) = default;
   Team(Team&& other) = default;
   //operators overloding
-  Team& operator=(const Team& other) = default;
-  Team& operator=(Team&& other) = default;
+  Team& operator=(const Team& other);
+  Team& operator=(Team&& other) noexcept;
   
   //class function and deconstractor
   void add(Character *member);
@@ -35,7 +35,7 @@ public:
   void print();
   Character *findFarestFigure(Character *figure, Team * team);
   Character *findClosestFigure(Team *team);
-  Character *findClosestFigureSmart(Character *figure, Team team);
+  Character *findClosestFigureSmart(Character *figure, Team *team);
   Character *getCommander();
   void setCommander(Character *newCommander);
   vector<Character *> *getTeam();
