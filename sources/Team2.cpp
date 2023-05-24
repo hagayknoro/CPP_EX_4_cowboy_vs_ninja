@@ -25,7 +25,7 @@
       if(!target->isAlive())
       {
         target = findClosestFigure(other);
-        if(target == nullptr)
+        if(!target)
           return;
       }
       member->attack(target);

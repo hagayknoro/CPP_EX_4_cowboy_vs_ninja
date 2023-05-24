@@ -44,3 +44,13 @@ int Character::getLife()
 {
     return this->life;
 }
+
+bool Character::getTeeMember()
+{
+    return this->TeeMember;
+}
+
+bool Character::setTeeMember()
+{
+    return this->TeeMember = true;
+}
