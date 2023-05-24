@@ -1,54 +1,41 @@
 #include "Team2.hpp"
 #include "Character.hpp"
-#include <vector>
-
-  Team2::Team2(const Team2& other):
-    Team(other), commander(other.commander)
-  {
-
-  }
 
   Team2::Team2(Character *commander):
-    Team(commander),commander(commander)
+    Team(commander)
   {
-    team.push_back(commander);
   }
 
-  Team2::Team2(Team2&& other)noexcept:
-    Team(other)
-  {
-  commander = other.commander;
-  team = other.team;
-  }
 
-  //operators overloding
-Team2 &Team2::operator=(const Team2 &other) {
-  commander = other.commander;
-  team = other.team;
-  return *this;
-}
-
-Team2 &Team2::operator=( Team2 &&other) noexcept{
-  commander = other.commander;
-  team = other.team;
-  return *this;
-}
-
-  //class function and deconstractor
-  void Team2::add(Character *member)
-  {
-
-  }
+ //class unique function
   void Team2::attack(Team *other)
   {
+    if(!other)
+      throw invalid_argument("You have to get am enmmy for attack\n");
+    if(other->stillAlive() == 0 || this->stillAlive() == 0)
+      throw runtime_error("One of the involved team is all ded");
+    if(this == other)
+      throw runtime_error("This is not the place for suicidal tendencies, we are in the middle of battle\n");
+    if(!this->getCommander()->isAlive())
+      this->setCommander(findClosestFigure(this));
+    
+    Character *target = findClosestFigure(other);
+    for(Character *member : *this->getTeam())
+    {
+      if(!target->isAlive())
+      {
+        target = findClosestFigure(other);
+        if(target == nullptr)
+          return;
+      }
+      member->attack(target);
+    }
+  }
 
-  }
-  int Team2::stillAlive()
-  {
-    return 0;
-  }
   void Team2::print()
   {
-
+    for(Character *member : *this->getTeam())
+    {
+        cout << member->print() << endl;
+    }
   }
-  Team2::~Team2(){}
