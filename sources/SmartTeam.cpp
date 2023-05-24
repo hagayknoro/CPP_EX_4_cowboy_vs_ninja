@@ -1,51 +1,37 @@
 #include "SmartTeam.hpp"
 #include "Character.hpp"
-#include <vector>
 
-SmartTeam::SmartTeam(const SmartTeam &other)
-    : Team(other), commander(other.commander) {}
+  SmartTeam::SmartTeam(Character *commander):
+    Team(commander)
+  {
+  }
 
-SmartTeam::SmartTeam(Character *commander) : Team(commander), commander(commander) {
-  team.push_back(commander);
-}
 
-SmartTeam::SmartTeam(SmartTeam &&other) noexcept : Team(other) {
-  commander = other.commander;
-  team = other.team;
-}
+ //class unique function
+  void SmartTeam::attack(Team *other)
+  {
+    if(!other)
+      throw invalid_argument("You have to get am enmmy for attack\n");
+    if(other->stillAlive() == 0)
+      return;
+    setCommander(findClosestFigure(this));
+    Character *target = findClosestFigure(other);
+    for(Character *member : *this->getTeam())
+    {
+      if(!target->isAlive())
+      {
+        target = findClosestFigure(other);
+        if(!target)
+          return;
+      }
+      member->attack(target);
+    }
+  }
 
-SmartTeam &SmartTeam::operator=(const SmartTeam &other) {
-  commander = other.commander;
-  team = other.team;
-  return *this;
-}
-
-SmartTeam &SmartTeam::operator=(SmartTeam &&other) noexcept {
-  commander = other.commander;
-  team = other.team;
-  return *this;
-}
-
-void SmartTeam::add(Character *member) {
-
-}
-
-void SmartTeam::attack(Team *other) 
-{
-
-}
-
-int SmartTeam::stillAlive() 
-{ 
-    return 0; 
-}
-
-void SmartTeam::print() 
-{
-
-}
-
-SmartTeam::~SmartTeam() 
-{
-    
-}
+  void SmartTeam::print()
+  {
+    for(Character *member : *this->getTeam())
+    {
+        cout << member->print() << endl;
+    }
+  }
