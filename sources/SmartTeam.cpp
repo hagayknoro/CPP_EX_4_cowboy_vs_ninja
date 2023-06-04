@@ -18,14 +18,29 @@
     Character *target = findClosestFigure(other);
     for(Character *member : *this->getTeam())
     {
-      if(!target->isAlive())
+      if(member->getFigure() == "Ninja")
       {
-        target = findClosestFigure(other);
-        if(!target)
-          return;
-      }
+        Character *target = findClosestFigureSmart(member, other);
+          if(!target->isAlive())
+          {
+            target = findClosestFigureSmart(member, other);
+            if(!target)
+              return;
+          }
       member->attack(target);
     }
+    else if(member->getFigure() == "Cowboy")
+      {
+        Character *target = findFarestFigure(member, other);
+          if(!target->isAlive())
+          {
+            target = findFarestFigure(member, other);
+            if(!target)
+              return;
+          }
+      member->attack(target);
+    }
+  }
   }
 
   void SmartTeam::print()
