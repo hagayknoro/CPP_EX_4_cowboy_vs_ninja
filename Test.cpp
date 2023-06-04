@@ -47,7 +47,6 @@ TEST_CASE("Characters functions")
     TrainedNinja Netanel("Netanel", b);
     Cowboy Kobi("Kobi", a);
     Ninja Roni("Roni", a, 100, 151515);
-    // CHECK_EQ(Roni.distance(&Kobi), 0);
     CHECK(Kobi.hasboolets());
     CHECK_NOTHROW(Kobi.shoot(&Naomi));
     CHECK_NOTHROW(Kobi.shoot(&Avichi));
@@ -107,6 +106,6 @@ TEST_CASE("check Team functions")
     {
         teamA.attack(&teamB);
     }
-    CHECK_THROWS(Hagay.shoot(&Avichi)); // cant shoot a dead man.(WASTE OF BULLETS :D)
+    CHECK_THROWS(Hagay.shoot(&Avichi)); // cant shoot a dead man.(WASTE OF BULLETS)
     CHECK_EQ(teamB.stillAlive(), 0);
 }
